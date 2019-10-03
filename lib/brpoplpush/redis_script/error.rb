@@ -2,7 +2,7 @@
 
 module Brpoplpush
   module RedisScript
-    # Error raised from {OnConflict::Raise}
+    # Error raised when redis fails to execute lua script
     #
     # @author Mikael Henriksson <mikael@zoolutions.se>
     class Error < RuntimeError
@@ -26,7 +26,7 @@ module Brpoplpush
         error.message =~ PATTERN
       end
 
-      # Initialize a new {ScriptError} from an existing redis error, adjusting
+      # Initialize a new {Error} from an existing redis error, adjusting
       # the message and backtrace in the process.
       #
       # @param error [StandardError] the original error raised by redis
