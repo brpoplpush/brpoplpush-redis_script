@@ -40,7 +40,7 @@ end
 
 require "yard"
 YARD::Rake::YardocTask.new(:yard) do |t|
-  t.files   = %w[lib/sidekiq_unique_jobs/**/*.rb]
+  t.files   = %w[lib/brpoplpush/**/*.rb]
   t.options = %w[
     --no-private
     --embed-mixins
