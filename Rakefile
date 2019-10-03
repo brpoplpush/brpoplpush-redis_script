@@ -42,19 +42,14 @@ require "yard"
 YARD::Rake::YardocTask.new(:yard) do |t|
   t.files   = %w[lib/sidekiq_unique_jobs/**/*.rb]
   t.options = %w[
-    --exclude lib/sidekiq_unique_jobs/testing.rb
-    --exclude lib/sidekiq_unique_jobs/web/helpers.rb
-    --exclude lib/redis.rb
     --no-private
     --embed-mixins
     --markup=markdown
     --markup-provider=redcarpet
     --readme README.md
-    --files CHANGELOG.md,LICENSE.txt
+    --files CHANGELOG.md,LICENSE
   ]
   t.stats_options = %w[
-    --exclude lib/sidekiq_unique_jobs/testing.rb
-    --exclude lib/sidekiq_unique_jobs/web/helpers.rb
     --no-private
     --compact
     --list-undoc
