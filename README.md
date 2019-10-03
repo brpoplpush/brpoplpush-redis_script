@@ -2,6 +2,8 @@
 
 Bring your own LUA scripts into redis
 
+[![Build Status](https://travis-ci.com/brpoplpush/brpoplpush-redis_script.svg?branch=master)](https://travis-ci.com/brpoplpush/brpoplpush-redis_script) [![Maintainability](https://api.codeclimate.com/v1/badges/3770a079b380d50c3d50/maintainability)](https://codeclimate.com/github/brpoplpush/brpoplpush-redis_script/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/3770a079b380d50c3d50/test_coverage)](https://codeclimate.com/github/brpoplpush/brpoplpush-redis_script/test_coverage)
+
 ## Installation
 
 Add this line to your application's Gemfile:
