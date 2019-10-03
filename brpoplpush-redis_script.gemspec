@@ -20,15 +20,16 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"]     = "https://github.com/brpoplpush/brpoplpush-redis_script/CHANGELOG.md"
 
   spec.bindir        = "bin"
-  # spec.executables   = %w[redis_script] # Don't need executables just yet?
-
+  spec.executables   = [] # Don't need executables just yet?
+  spec.require_paths = ["lib"]
   spec.files         = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").select do |file|
       file.match(%r{^(lib/*|README|LICENSE|CHANGELOG)})
     end
   end
 
-  spec.require_paths = ["lib"]
+  spec.required_ruby_version = '>= 2.5.0'
+
   spec.add_dependency "concurrent-ruby", "~> 1.0", ">= 1.0.5"
   spec.add_dependency "redis", ">= 1.0", "<= 5.0"
 
