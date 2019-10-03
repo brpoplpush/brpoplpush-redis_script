@@ -1,0 +1,47 @@
+env:
+  matrix:
+    - COV=false
+  global:
+    - CC_TEST_REPORTER_ID=TODO_REPLACE_ME
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+dist: trusty
+sudo: required
+language: ruby
+cache: bundler
+services:
+  - redis-server
+
+before_install:
+  - gem install bundler -v 2.0.2
+  - if [[ "${COV}" = "true" ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi;
+  - if [[ "${COV}" = "true" ]]; then chmod +x ./cc-test-reporter; fi;
+
+before_script:
+  - if [[ "${COV}" = "true" ]]; then ./cc-test-reporter before-build; fi;
+
+script:
+  - if [[ "${COV}" = "true" ]]; then bundle exec rubocop -P; fi;
+  - if [[ "${COV}" = "true" ]]; then bundle exec reek .; fi;
+  - bundle exec rspec --require spec_helper --tag ~perf
+
+after_script:
+  - if [[ "${COV}" = "true" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi;
+rvm:
+  - 2.6.5
+  - 2.5.7
+
+matrix:
+  fast_finish: true
+  include:
+    - rvm: 2.6.5
+      gemfile: gemfiles/redis_4.x.gemfile
+      env: COV=true
+
+gemfile:
+  - gemfiles/redis_3.x.gemfile
+  - gemfiles/redis_4.x.gemfile
+
+notifications:
+  email:
+    recipients:
+      - mikael@zoolutions.se
