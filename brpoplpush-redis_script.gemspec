@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage    = "https://github.com/brpoplpush/brpoplpush-redis_script"
   spec.license     = "MIT"
 
-  spec.metadata["allowed_push_host"] = "'https://rubygems.org'"
+  spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"]      = spec.homepage
   spec.metadata["source_code_uri"]   = "https://github.com/brpoplpush/brpoplpush-redis_script"
   spec.metadata["changelog_uri"]     = "https://github.com/brpoplpush/brpoplpush-redis_script/CHANGELOG.md"
