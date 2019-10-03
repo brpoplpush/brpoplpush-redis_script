@@ -21,7 +21,6 @@ RSPEC_OPTIONS = {
 
 scope group: :tdd
 clearing :on
-notification :terminal_notifier, app_name: "brpoplpush-redis_script ::", activate: "com.googlecode.iTerm2" if `uname` =~ /Darwin/
 
 group :tdd, halt_on_fail: true do
   guard :rspec, RSPEC_OPTIONS do

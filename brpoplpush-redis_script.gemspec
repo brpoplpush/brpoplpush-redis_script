@@ -33,10 +33,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "redis", ">= 1.0", "<= 5.0"
 
   spec.add_development_dependency "bundler", "~> 2.0"
-  spec.add_development_dependency "rack-test", ">= 1.0", "< 2.0"
   spec.add_development_dependency "rake", "~> 12.3"
   spec.add_development_dependency "rspec", "~> 3.7"
-  spec.add_development_dependency "sinatra", ">= 2.0", "< 3.0"
 
   # ===== Documentation =====
   spec.add_development_dependency "github-markup", "~> 3.0"
