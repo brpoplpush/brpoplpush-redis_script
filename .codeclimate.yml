@@ -27,10 +27,10 @@ checks:
       threshold: 4
   similar-code:
     config:
-      # threshold: # language-specific defaults. an override will affect all languages.
+      threshold: # language-specific defaults. an override will affect all languages.
   identical-code:
     config:
-      # threshold: # language-specific defaults. an override will affect all languages.
+      threshold: # language-specific defaults. an override will affect all languages.
 
 plugins:
   duplication:
@@ -50,7 +50,7 @@ plugins:
       file: .reek.yml
   rubocop:
     enabled: true
-    channel: rubocop-0-75
+    channel: rubocop-0-74
     config:
       file: .rubocop.yml
 
