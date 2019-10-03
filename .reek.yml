@@ -1,0 +1,32 @@
+---
+exclude_paths:
+  - spec
+  - tmp
+  - gemfiles
+  - examples
+  - vendor/bundle
+detectors:
+  DataClump:
+    exclude:
+      - Brpoplpush::RedisScript::Client
+  LongParameterList:
+    exclude:
+      - Brpoplpush::RedisScript::Client#call
+      - Brpoplpush::RedisScript::Client#execute_script
+      - Brpoplpush::RedisScript#call
+  TooManyStatements:
+    exclude:
+      - initialize
+      - Brpoplpush::RedisScript::Client#call
+      - Brpoplpush::RedisScript::Client#handle_error
+      - Brpoplpush::RedisScript::Error#generate_error_context
+  FeatureEnvy:
+    exclude:
+      - Brpoplpush::RedisScript::Error#generate_error_context
+  UtilityFunction:
+    exclude:
+      - Brpoplpush::RedisScript::Error#line_from_gem
+      - Brpoplpush::RedisScript::Logging#logger
+  InstanceVariableAssumption:
+    exclude:
+      - Brpoplpush::RedisScript::Template
