@@ -2,6 +2,8 @@
 
 module Brpoplpush
   module RedisScript
+    class Misconfiguration < RuntimeError
+    end
     # Error raised from {OnConflict::Raise}
     #
     # @author Mikael Henriksson <mikael@zoolutions.se>

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe Brpoplpush::RedisScript::Client do
-  subject { described_class }
+  let(:client) { described_class.new }
 
   it { is_expected.to respond_to(:call).with(2).arguments.and_keywords(:keys, :argv) }
   it { is_expected.to respond_to(:script_source).with(1).arguments }
   it { is_expected.to respond_to(:script_path).with(1).arguments }
 
   describe ".call" do
-    subject(:call) { described_class.call(script_name, redis, script_arguments) }
+    subject(:call) { client.call(script_name, redis, script_arguments) }
 
     let(:keys)             { %w[key_one key_two key_tre key_for key_fav] }
     let(:argv)             { %w[arg_one arg_two arg_tre arg_for arg_fav] }
@@ -20,7 +20,7 @@ RSpec.describe Brpoplpush::RedisScript::Client do
 
     before do
       call_count = 0
-      allow(described_class).to receive(:execute_script).with(script_name, redis, keys, argv) do
+      allow(client).to receive(:execute_script).with(script_name, redis, keys, argv) do
         call_count += 1
         (call_count == 1) ? raise(Redis::CommandError, error_message) : 1
       end
@@ -60,7 +60,7 @@ RSpec.describe Brpoplpush::RedisScript::Client do
       specify { expect(exception.backtrace.first).to match(%r{spec/support/lua/test.lua:7}) }
       specify { expect(exception.backtrace[1]).to match(/client.rb/) }
       specify { expect(described_class::SCRIPT_SHAS).not_to have_received(:delete).with(script_name) }
-      specify { expect(described_class).to have_received(:execute_script).with(script_name, redis, keys, argv).once }
+      specify { expect(client).to have_received(:execute_script).with(script_name, redis, keys, argv).once }
     end
 
     context "when error starts with BUSY" do
@@ -73,13 +73,13 @@ RSpec.describe Brpoplpush::RedisScript::Client do
       context "when .script(:kill) raises CommandError" do
         before do
           allow(redis).to receive(:script).with(:kill) { raise Redis::CommandError, "NOT BUSY" }
-          allow(described_class).to receive(:log_warn)
+          allow(client).to receive(:log_warn)
         end
 
         specify do
           expect { call }.not_to raise_error
-          expect(described_class).to have_received(:log_warn).with(kind_of(Redis::CommandError))
-          expect(described_class).to have_received(:execute_script).with(script_name, redis, keys, argv).twice
+          expect(client).to have_received(:log_warn).with(kind_of(Redis::CommandError))
+          expect(client).to have_received(:execute_script).with(script_name, redis, keys, argv).twice
         end
       end
 
@@ -90,7 +90,7 @@ RSpec.describe Brpoplpush::RedisScript::Client do
           expect { call }.not_to raise_error
 
           expect(redis).to have_received(:script).with(:kill)
-          expect(described_class).to have_received(:execute_script).with(script_name, redis, keys, argv).twice
+          expect(client).to have_received(:execute_script).with(script_name, redis, keys, argv).twice
         end
       end
     end
@@ -102,7 +102,7 @@ RSpec.describe Brpoplpush::RedisScript::Client do
         expect { call }.not_to raise_error
 
         expect(described_class::SCRIPT_SHAS).to have_received(:delete).with(script_name)
-        expect(described_class).to have_received(:execute_script).with(script_name, redis, keys, argv).twice
+        expect(client).to have_received(:execute_script).with(script_name, redis, keys, argv).twice
       end
     end
   end

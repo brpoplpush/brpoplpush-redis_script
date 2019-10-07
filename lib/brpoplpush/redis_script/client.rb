@@ -8,14 +8,34 @@ module Brpoplpush
   module RedisScript
     # Interface to dealing with .lua files
     #
-    # @author Mikael Henriksson <mikael@zoolutions.se>
-    module Client
+    # @author Mikael Henriksson <mikael@mhenrixon.com>
+    class Client
       SCRIPT_SHAS ||= Concurrent::Map.new
 
-      extend Brpoplpush::RedisScript::Timing
-      extend Brpoplpush::RedisScript::Logging
+      include Brpoplpush::RedisScript::Timing
+      include Brpoplpush::RedisScript::Logging
 
-      module_function
+      #
+      # Call a lua script with the provided file_name
+      #
+      # @note this method is recursive if we need to load a lua script
+      #   that wasn't previously loaded.
+      #
+      # @param [Symbol] file_name the name of the lua script
+      # @param [Array<String>] keys script keys
+      # @param [Array<Object>] argv script arguments
+      # @param [Redis] conn the redis connection to use
+      #
+      # @return value from script
+      #
+      def self.call(file_name, conn, keys: [], argv: [])
+        new.call(file_name, conn, keys: keys, argv: argv)
+      end
+
+      def initialize(config = Brpoplpush::RedisScript.config)
+        @config = config
+        fail Misconfiguration, "Please provide a configuration with a `script_directory`" unless @config.script_directory
+      end
 
       #
       # Call a lua script with the provided file_name

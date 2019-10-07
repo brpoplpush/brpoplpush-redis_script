@@ -16,7 +16,7 @@ require "brpoplpush/redis_script/client"
 module Brpoplpush
   # Interface to dealing with .lua files
   #
-  # @author Mikael Henriksson <mikael@zoolutions.se>
+  # @author Mikael Henriksson <mikael@mhenrixon.com>
   module RedisScript
     module_function
 
@@ -24,9 +24,8 @@ module Brpoplpush
     #
     # This is usually called once at startup of an application
     # @param [Hash] options global gem options
-    # @option options [Integer] :default_lock_timeout (default is 0)
-    # @option options [true,false] :enabled (default is true)
-    # @option options [String] :unique_prefix (default is 'uniquejobs')
+    # @option options [String, Pathname] :script_directory
+    # @option options [true,false] :debug_lua (default is true)
     # @option options [Logger] :logger (default is Logger.new(STDOUT))
     # @yield control to the caller when given block
     def configure(options = {})
@@ -46,8 +45,7 @@ module Brpoplpush
     # @return [RedisScript::Config] the gem configuration
     #
     def config
-      # Arguments here need to match the definition of the new class (see above)
-      @config ||= Config.default
+      @config ||= Config.new
     end
 
     #
