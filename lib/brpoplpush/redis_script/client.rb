@@ -32,11 +32,12 @@ module Brpoplpush
         new.call(file_name, conn, keys: keys, argv: argv)
       end
 
-      def initialize(config = Brpoplpush::RedisScript.config)
-        @config = config
-        return if @config.script_directory
+      attr_reader :script_directory
 
-        raise Misconfiguration, "Please provide a configuration with a `script_directory`"
+      def initialize(config = Brpoplpush::RedisScript.config)
+        @script_directory = config.script_directory
+
+        raise Misconfiguration, "Please provide a configuration with a `script_directory`" unless script_directory
       end
 
       #
@@ -140,7 +141,7 @@ module Brpoplpush
       # @return [String] the content of the lua file
       #
       def script_source(file_name)
-        Template.new(RedisScript.config.script_directory).render(script_path(file_name))
+        Template.new(script_directory).render(script_path(file_name))
       end
 
       # Construct a Pathname to a lua script
@@ -150,7 +151,7 @@ module Brpoplpush
       # @return [Pathname] the full path to the gems lua script
       #
       def script_path(file_name)
-        RedisScript.config.script_directory.join("#{file_name}.lua")
+        script_directory.join("#{file_name}.lua")
       end
     end
   end

@@ -2,6 +2,11 @@
 
 module Brpoplpush
   module RedisScript
+    #
+    # Misconfiguration is raised when gem is misconfigured
+    #
+    # @author Mikael Henriksson <mikael@zoolutions.se>
+    #
     class Misconfiguration < RuntimeError
     end
     # Error raised from {OnConflict::Raise}

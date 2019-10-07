@@ -13,6 +13,7 @@ detectors:
     exclude:
       - Brpoplpush::RedisScript::Client#call
       - Brpoplpush::RedisScript::Client#execute_script
+      - Brpoplpush::RedisScript::Client#self.call
       - Brpoplpush::RedisScript#call
   TooManyStatements:
     exclude:
