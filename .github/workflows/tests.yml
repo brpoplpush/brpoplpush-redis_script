@@ -1,0 +1,46 @@
+name: Ruby Gem
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build + Tests
+    runs-on: ubuntu-latest
+    # https://help.github.com/en/articles/virtual-environments-for-github-actions
+    env:
+      CC_TEST_REPORTER_ID: e8ee6fccdc36b46acdc96337bb39b2c17ccd824e413649a4d94fd0dd35891d0f
+
+    steps:
+      - uses: actions/checkout@master
+      # Use the lowest supported ruby version
+      - name: Set up Ruby 2.5
+        uses: actions/setup-ruby@v1
+        with:
+          version: 2.5.x
+      - name: Setup Bundler and dependecies
+        run: |
+          gem install bundler
+          bundle install --quiet
+      - name: Codeclimate Before Build
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+      - name: RSpec tests
+        run: |
+          bundle exec rspec --require spec_helper --tag ~perf
+      - name: Rubocop Check
+        run: |
+          bundle exec rubocop -P
+      - name: Reek Check
+        run: |
+          bundle exec bundle exec reek .
+      - name: Codeclimate After Build
+        # We may need to figure out how to pass an equivalent to --exit-code $TRAVIS_TEST_RESULT
+        run: ./cc-test-reporter after-build --exit-code 0
