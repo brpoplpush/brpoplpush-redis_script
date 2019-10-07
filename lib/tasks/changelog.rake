@@ -5,11 +5,11 @@ task :changelog do
   # rubocop:disable Style/MutableConstant
   CHANGELOG_CMD ||= %w[
     github_changelog_generator
-    -u
-    brpoplpush
-    -p
-    brpoplpush-redis_script
     --no-verbose
+    --user
+    brpoplpush
+    --project
+    brpoplpush-redis_script
     --token
   ]
   ADD_CHANGELOG_CMD      ||= "git add --all"
