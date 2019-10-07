@@ -6,7 +6,7 @@ module Brpoplpush
     end
     # Error raised from {OnConflict::Raise}
     #
-    # @author Mikael Henriksson <mikael@zoolutions.se>
+    # @author Mikael Henriksson <mikael@mhenrixon.com>
     class Error < RuntimeError
       # Reformats errors raised by redis representing failures while executing
       # a lua script. The default errors have confusing messages and backtraces,

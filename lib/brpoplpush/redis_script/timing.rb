@@ -4,7 +4,7 @@ module Brpoplpush
   module RedisScript
     # Handles timing> of things
     #
-    # @author Mikael Henriksson <mikael@zoolutions.se>
+    # @author Mikael Henriksson <mikael@mhenrixon.com>
     module Timing
       module_function
 
