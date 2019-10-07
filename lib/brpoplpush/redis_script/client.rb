@@ -34,7 +34,9 @@ module Brpoplpush
 
       def initialize(config = Brpoplpush::RedisScript.config)
         @config = config
-        fail Misconfiguration, "Please provide a configuration with a `script_directory`" unless @config.script_directory
+        return if @config.script_directory
+
+        raise Misconfiguration, "Please provide a configuration with a `script_directory`"
       end
 
       #
