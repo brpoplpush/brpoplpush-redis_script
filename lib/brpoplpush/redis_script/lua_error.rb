@@ -12,7 +12,7 @@ module Brpoplpush
     # Error raised from {OnConflict::Raise}
     #
     # @author Mikael Henriksson <mikael@mhenrixon.com>
-    class Error < RuntimeError
+    class LuaError < RuntimeError
       # Reformats errors raised by redis representing failures while executing
       # a lua script. The default errors have confusing messages and backtraces,
       # and a type of +RuntimeError+. This class improves the message and
@@ -30,7 +30,7 @@ module Brpoplpush
       # @param error [StandardError] the original error raised by redis
       # @return [Boolean] is this an error that should be reformatted?
       def self.intercepts?(error)
-        error.message =~ PATTERN
+        PATTERN.match?(error.message)
       end
 
       # Initialize a new {Error} from an existing redis error, adjusting
@@ -39,10 +39,10 @@ module Brpoplpush
       # @param error [StandardError] the original error raised by redis
       # @param file [Pathname] full path to the lua file the error ocurred in
       # @param content [String] lua file content the error ocurred in
-      def initialize(error, file, content)
+      def initialize(error, script)
         @error        = error
-        @file         = file
-        @content      = content
+        @file         = script.path
+        @content      = script.source
         @backtrace    = @error.backtrace
 
         @error.message.match(PATTERN) do |regexp_match|

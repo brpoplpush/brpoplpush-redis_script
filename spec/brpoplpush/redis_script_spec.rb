@@ -7,5 +7,5 @@ RSpec.describe Brpoplpush::RedisScript do
     expect(Brpoplpush::RedisScript::VERSION).not_to be nil
   end
 
-  it { is_expected.to respond_to(:call).with(2).arguments.and_keywords(:keys, :argv) }
+  it { is_expected.to respond_to(:execute).with(2).arguments.and_keywords(:keys, :argv) }
 end

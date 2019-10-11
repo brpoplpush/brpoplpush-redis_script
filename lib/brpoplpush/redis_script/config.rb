@@ -7,20 +7,16 @@ module Brpoplpush
     #
     # @author Mikael Henriksson <mikael@mhenrixon.com>
     class Config
-      DEBUG_LUA        = false
-      LOGGER           = Logger.new(STDOUT)
-      SCRIPT_DIRECTORY = nil
-
-      attr_reader :script_directory, :debug_lua, :logger
+      attr_reader :logger, :redis, :scripts_path
 
       def initialize
-        @script_directory = nil
-        @debug_lua        = DEBUG_LUA
-        @logger           = LOGGER
+        @conn         = Redis.new
+        @logger       = Logger.new(STDOUT)
+        @scripts_path = nil
       end
 
-      def script_directory=(obj)
-        @script_directory =
+      def scripts_path=(obj)
+        @scripts_path =
           case obj
           when String
             Pathname.new(obj)
@@ -35,16 +31,6 @@ module Brpoplpush
         raise ArgumentError, "obj needs to be a Logger" unless obj.is_a?(Logger)
 
         @logger = obj
-      end
-
-      def debug_lua=(obj)
-        @debug_lua =
-          case obj
-          when TrueClass, FalseClass, NilClass
-            obj
-          else
-            raise ArgumentError, "obj needs to be a Logger" unless obj.is_a?(Truy)
-          end
       end
     end
   end

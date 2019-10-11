@@ -2,15 +2,20 @@
 
 require "concurrent/map"
 require "concurrent/mutable_struct"
+require "digest/sha1"
 require "logger"
+require "pathname"
 require "redis"
 
 require "brpoplpush/redis_script/version"
 require "brpoplpush/redis_script/template"
-require "brpoplpush/redis_script/error"
+require "brpoplpush/redis_script/lua_error"
+require "brpoplpush/redis_script/script"
+require "brpoplpush/redis_script/scripts"
 require "brpoplpush/redis_script/config"
 require "brpoplpush/redis_script/timing"
 require "brpoplpush/redis_script/logging"
+require "brpoplpush/redis_script/dsl"
 require "brpoplpush/redis_script/client"
 
 module Brpoplpush
@@ -20,32 +25,16 @@ module Brpoplpush
   module RedisScript
     module_function
 
-    # Configure the gem
-    #
-    # This is usually called once at startup of an application
-    # @param [Hash] options global gem options
-    # @option options [String, Pathname] :script_directory
-    # @option options [true,false] :debug_lua (default is true)
-    # @option options [Logger] :logger (default is Logger.new(STDOUT))
-    # @yield control to the caller when given block
-    def configure(options = {})
-      if block_given?
-        yield config
-      else
-        options.each do |key, val|
-          config.send("#{key}=", val)
-        end
-      end
-    end
+    include Brpoplpush::RedisScript::DSL
 
     #
-    # The current configuration (See: {.configure} on how to configure)
+    # The current gem version
     #
     #
-    # @return [RedisScript::Config] the gem configuration
+    # @return [String] the current gem version
     #
-    def config
-      @config ||= Config.new
+    def version
+      VERSION
     end
 
     #
@@ -56,16 +45,6 @@ module Brpoplpush
     #
     def logger
       config.logger
-    end
-
-    #
-    # The current gem version
-    #
-    #
-    # @return [String] the current gem version
-    #
-    def version
-      VERSION
     end
 
     #
@@ -80,18 +59,18 @@ module Brpoplpush
     end
 
     #
-    # Call a lua script with the provided file_name
+    # Execute the given script_name
     #
     #
-    # @param [Symbol] file_name the name of the lua script
+    # @param [Symbol] script_name the name of the lua script
     # @param [Array<String>] keys script keys
     # @param [Array<Object>] argv script arguments
     # @param [Redis] conn the redis connection to use
     #
     # @return value from script
     #
-    def call(file_name, conn, keys: [], argv: [])
-      Client.call(file_name, conn, keys: keys, argv: argv)
+    def execute(script_name, conn, keys: [], argv: [])
+      Client.execute(script_name, conn, keys: keys, argv: argv)
     end
   end
 end

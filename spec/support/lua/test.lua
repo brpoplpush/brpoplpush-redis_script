@@ -32,7 +32,6 @@ redis.call("SET", key_for, arg_for, "ex", 10)
 log_debug("SET", key_fiv, arg_fiv, "ex", 10)
 redis.call("SET", key_fiv, arg_fiv, "ex", 10)
 
-log("Locked")
 log_debug("END test key:", key_one, "arg_one:", arg_one)
 
 return arg_for
