@@ -9,24 +9,31 @@ detectors:
   DataClump:
     exclude:
       - Brpoplpush::RedisScript::Client
-  LongParameterList:
-    exclude:
-      - Brpoplpush::RedisScript::Client#call
-      - Brpoplpush::RedisScript::Client#execute_script
-      - Brpoplpush::RedisScript#call
-  TooManyStatements:
-    exclude:
-      - initialize
-      - Brpoplpush::RedisScript::Client#call
-      - Brpoplpush::RedisScript::Client#handle_error
-      - Brpoplpush::RedisScript::Error#generate_error_context
   FeatureEnvy:
     exclude:
-      - Brpoplpush::RedisScript::Error#generate_error_context
-  UtilityFunction:
-    exclude:
-      - Brpoplpush::RedisScript::Error#line_from_gem
-      - Brpoplpush::RedisScript::Logging#logger
+      - Brpoplpush::RedisScript::LuaError#generate_error_context
+      - Brpoplpush::RedisScript::Scripts#delete
   InstanceVariableAssumption:
     exclude:
       - Brpoplpush::RedisScript::Template
+  LongParameterList:
+    exclude:
+      - Brpoplpush::RedisScript#execute
+      - Brpoplpush::RedisScript::Client#execute
+      - Brpoplpush::RedisScript::Client#self.call
+      - Brpoplpush::RedisScript::DSL::ClassMethods#execute
+      - Brpoplpush::RedisScript::Scripts#execute
+  TooManyInstanceVariables:
+    exclude:
+      - Brpoplpush::RedisScript::Script
+  TooManyStatements:
+    exclude:
+      - Brpoplpush::RedisScript::Client#execute
+      - Brpoplpush::RedisScript::Client#handle_error
+      - Brpoplpush::RedisScript::LuaError#generate_error_context
+      - initialize
+  UtilityFunction:
+    exclude:
+      - Brpoplpush::RedisScript::Logging#logger
+      - Brpoplpush::RedisScript::LuaError#line_from_gem
+      - Brpoplpush::RedisScript::Scripts#kill

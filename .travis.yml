@@ -4,7 +4,7 @@ env:
   global:
     - CC_TEST_REPORTER_ID=e8ee6fccdc36b46acdc96337bb39b2c17ccd824e413649a4d94fd0dd35891d0f
     - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
-dist: trusty
+dist: bionic
 sudo: required
 language: ruby
 cache: bundler

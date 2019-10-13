@@ -2,35 +2,67 @@
 
 module Brpoplpush
   module RedisScript
-    # ThreadSafe config exists to be able to document the config class without errors
-    ThreadSafeConfig = Concurrent::MutableStruct.new("ThreadSafeConfig",
-                                                     :debug_lua,
-                                                     :logger,
-                                                     :script_directory)
-
     #
-    # Shared class for dealing with gem configuration
+    # Class holding gem configuration
     #
-    # @author Mauro Berlanda <mauro.berlanda@gmail.com>
-    class Config < ThreadSafeConfig
-      DEBUG_LUA        = false
-      LOGGER           = ::Logger.new(STDOUT)
-      SCRIPT_DIRECTORY = nil
+    # @author Mikael Henriksson <mikael@mhenrixon.com>
+    class Config
+      #
+      # @!attribute [r] logger
+      #   @return [Logger] a logger to use for debugging
+      attr_reader :logger
+      #
+      # @!attribute [r] scripts_path
+      #   @return [Pathname] a directory with lua scripts
+      attr_reader :scripts_path
 
       #
-      # Returns a default configuration
-      #
-      # @example
-      #   RedisScript::Config.default => <concurrent/mutable_struct/thread_safe_config RedisScript::Config {
-      #   logger: #<Logger:0x00007f81e096b0e0 @level=1 ...>,
-      #   debug_lua: false,
-      #   }>
+      # Initialize a new instance of {Config}
       #
       #
-      # @return [RedisScript::Config] a default configuration
+      def initialize
+        @conn         = Redis.new
+        @logger       = Logger.new(STDOUT)
+        @scripts_path = nil
+      end
+
       #
-      def self.default
-        new(DEBUG_LUA, LOGGER, SCRIPT_DIRECTORY)
+      # Sets a value for scripts_path
+      #
+      # @param [String, Pathname] obj <description>
+      #
+      # @raise [ArgumentError] when directory does not exist
+      # @raise [ArgumentError] when argument isn't supported
+      #
+      # @return [Pathname]
+      #
+      def scripts_path=(obj)
+        raise ArgumentError "#{obj} does not exist" unless Dir.exist?(obj.to_s)
+
+        @scripts_path =
+          case obj
+          when String
+            Pathname.new(obj)
+          when Pathname
+            obj
+          else
+            raise ArgumentError, "#{obj} should be a Pathname or String"
+          end
+      end
+
+      #
+      # Sets a value for logger
+      #
+      # @param [Logger] obj a logger to use
+      #
+      # @raise [ArgumentError] when given argument isn't a Logger
+      #
+      # @return [Logger]
+      #
+      def logger=(obj)
+        raise ArgumentError, "#{obj} should be a Logger" unless obj.is_a?(Logger)
+
+        @logger = obj
       end
     end
   end
