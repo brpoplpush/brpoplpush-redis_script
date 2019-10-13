@@ -8,10 +8,6 @@ module Brpoplpush
     # @author Mikael Henriksson <mikael@mhenrixon.com>
     class Config
       #
-      # @!attribute [r] logger
-      #   @return [Logger] a logger to use for debugging
-      attr_reader :logger
-      #
       # @!attribute [r] scripts_path
       #   @return [Pathname] a directory with lua scripts
       attr_reader :scripts_path
@@ -50,17 +46,23 @@ module Brpoplpush
           end
       end
 
+      def logger
+        # Convert to a regular logger on first call
+        @logger = @logger.call if @logger.is_a?(Proc)
+        @logger
+      end
+
       #
       # Sets a value for logger
       #
-      # @param [Logger] obj a logger to use
+      # @param [Logger, Proc] obj a logger to use
       #
       # @raise [ArgumentError] when given argument isn't a Logger
       #
       # @return [Logger]
       #
       def logger=(obj)
-        raise ArgumentError, "#{obj} should be a Logger" unless obj.is_a?(Logger)
+        raise ArgumentError, "#{obj} should be a Logger or a proc" unless obj.is_a?(Logger) || obj.is_a?(Proc)
 
         @logger = obj
       end
