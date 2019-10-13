@@ -22,6 +22,12 @@ Or install it yourself as:
 
 ## Usage
 
+If you want to avoid global state in your project/gem the recommended way to use `RedisScript` is the following way.
+
+Include the DSL module from the gem and configure with a path. We don't believe it is a good idea to put all your lua files in a single directory. We rather believe that these scripts should be placed and organized by feature.
+
+Let's take sidekiq-unique-jobs for example. It uses `brpoplpush-redis_script` like follows:
+
 ```ruby
 # lib/my_redis_scripts.rb
 require "brpoplpush-redis_script"
@@ -56,6 +62,8 @@ end
 
 return -1
 ```
+
+This is a very simplified version of course.
 
 ## Development
 
