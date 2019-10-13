@@ -61,6 +61,8 @@
 
 <p>Bring your own LUA scripts into redis</p>
 
+<p><a href="https://travis-ci.com/brpoplpush/brpoplpush-redis_script"><img src="https://travis-ci.com/brpoplpush/brpoplpush-redis_script.svg?branch=master" alt="Build Status"></a> <a href="https://codeclimate.com/github/brpoplpush/brpoplpush-redis_script/maintainability"><img src="https://api.codeclimate.com/v1/badges/3770a079b380d50c3d50/maintainability" alt="Maintainability"></a> <a href="https://codeclimate.com/github/brpoplpush/brpoplpush-redis_script/test_coverage"><img src="https://api.codeclimate.com/v1/badges/3770a079b380d50c3d50/test_coverage" alt="Test Coverage"></a></p>
+
 <h2>Installation</h2>
 
 <p>Add this line to your application&#39;s Gemfile:</p>
@@ -70,17 +72,54 @@
 
 <p>And then execute:</p>
 
-<pre class="code ruby"><code class="ruby">$ bundle
-</code></pre>
+<p><code>bundle</code></p>
 
 <p>Or install it yourself as:</p>
 
-<pre class="code ruby"><code class="ruby">$ gem install brpoplpush-redis_script
-</code></pre>
+<p><code>gem install brpoplpush-redis_script</code></p>
 
 <h2>Usage</h2>
 
-<p>TODO: Write usage instructions here</p>
+<p>If you want to avoid global state in your project/gem the recommended way to use <code>RedisScript</code> is the following way.</p>
+
+<p>Include the DSL module from the gem and configure with a path. We don&#39;t believe it is a good idea to put all your lua files in a single directory. We rather believe that these scripts should be placed and organized by feature.</p>
+
+<p>Let&#39;s take sidekiq-unique-jobs for example. It uses <code>brpoplpush-redis_script</code> like follows:</p>
+
+<pre class="code ruby"><code class="ruby"># lib/my_redis_scripts.rb
+require &quot;brpoplpush-redis_script&quot;
+
+module SidekiqUniqueJobs::Scripts
+  include Brpoplpush::RedisScript::DSL
+
+  configure do |config|
+    config.scripts_path = Rails.root.join(&quot;app&quot;, &quot;lua&quot;)
+  end
+end
+
+SidekiqUniqueJobs::Scripts.execute(:lock, Redis.new, keys: [&quot;key1&quot;, &quot;key2&quot;] argv: [&quot;bogus&quot;])
+# =&gt; 1
+
+SidekiqUniqueJobs::Scripts.execute(:lock, Redis.new, keys: [&quot;key1&quot;, &quot;key1&quot;] argv: [&quot;bogus&quot;])
+# =&gt; -1
+</code></pre>
+
+<pre class="code lua"><code class="lua">-- app/lua/lock.lua
+
+local key_one = KEYS[1]
+local key_two = KEYS[2]
+
+local locked_val = ARGV[1]
+
+if not key_one == key_two then
+  redis.call(&quot;SET&quot;, key_two, )
+  return 1
+end
+
+return -1
+</code></pre>
+
+<p>This is a very simplified version of course.</p>
 
 <h2>Development</h2>
 
@@ -90,7 +129,7 @@
 
 <h2>Contributing</h2>
 
-<p>Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/%5BUSERNAME%5D/brpoplpush-redis_script">https://github.com/[USERNAME]/brpoplpush-redis_script</a>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the <a href="http://contributor-covenant.org">Contributor Covenant</a> code of conduct.</p>
+<p>Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/bropoplpush/brpoplpush-redis_script">https://github.com/bropoplpush/brpoplpush-redis_script</a>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the <a href="http://contributor-covenant.org">Contributor Covenant</a> code of conduct.</p>
 
 <h2>License</h2>
 
@@ -102,7 +141,7 @@
 </div></div>
 
       <div id="footer">
-  Generated on Thu Oct  3 09:50:25 2019 by
+  Generated on Sun Oct 13 22:27:17 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.6.5).
 </div>
