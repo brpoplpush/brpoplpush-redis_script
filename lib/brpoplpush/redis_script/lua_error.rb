@@ -9,7 +9,7 @@ module Brpoplpush
     #
     class Misconfiguration < RuntimeError
     end
-    # Error raised from {OnConflict::Raise}
+    # LuaError raised on errors in Lua scripts
     #
     # @author Mikael Henriksson <mikael@mhenrixon.com>
     class LuaError < RuntimeError
@@ -33,12 +33,12 @@ module Brpoplpush
         PATTERN.match?(error.message)
       end
 
-      # Initialize a new {Error} from an existing redis error, adjusting
+      # Initialize a new {LuaError} from an existing redis error, adjusting
       # the message and backtrace in the process.
       #
       # @param error [StandardError] the original error raised by redis
-      # @param file [Pathname] full path to the lua file the error ocurred in
-      # @param content [String] lua file content the error ocurred in
+      # @param script [Script] a DTO with information about the script
+      #
       def initialize(error, script)
         @error        = error
         @file         = script.path

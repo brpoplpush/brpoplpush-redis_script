@@ -14,15 +14,48 @@ gem 'brpoplpush-redis_script'
 
 And then execute:
 
-    $ bundle
+`bundle`
 
 Or install it yourself as:
 
-    $ gem install brpoplpush-redis_script
+`gem install brpoplpush-redis_script`
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+# lib/my_redis_scripts.rb
+require "brpoplpush-redis_script"
+
+module SidekiqUniqueJobs::Scripts
+  include Brpoplpush::RedisScript::DSL
+
+  configure do |config|
+    config.scripts_path = Rails.root.join("app", "lua")
+  end
+end
+
+SidekiqUniqueJobs::Scripts.execute(:lock, Redis.new, keys: ["key1", "key2"] argv: ["bogus"])
+# => 1
+
+SidekiqUniqueJobs::Scripts.execute(:lock, Redis.new, keys: ["key1", "key1"] argv: ["bogus"])
+# => -1
+```
+
+```lua
+-- app/lua/lock.lua
+
+local key_one = KEYS[1]
+local key_two = KEYS[2]
+
+local locked_val = ARGV[1]
+
+if not key_one == key_two then
+  redis.call("SET", key_two, )
+  return 1
+end
+
+return -1
+```
 
 ## Development
 
@@ -32,7 +65,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/brpoplpush-redis_script. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/bropoplpush/brpoplpush-redis_script](https://github.com/bropoplpush/brpoplpush-redis_script). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 

@@ -12,8 +12,6 @@ module Brpoplpush
     module DSL
       def self.included(base)
         base.class_eval do
-          include Brpoplpush::RedisScript::Timing
-          include Brpoplpush::RedisScript::Logging
           extend ClassMethods
         end
       end
@@ -25,7 +23,9 @@ module Brpoplpush
       #
       module ClassMethods
         def execute(file_name, conn, keys: [], argv: [])
-          Brpoplpush::RedisScript::Client.new(config, file_name, conn).execute(keys: keys, argv: argv)
+          Brpoplpush::RedisScript::Client
+            .new(config)
+            .execute(file_name, conn, keys: keys, argv: argv)
         end
 
         # Configure the gem

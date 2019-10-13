@@ -13,7 +13,7 @@ module Brpoplpush
       #
       # Fetch a scripts configuration for path
       #
-      # @param [Pathname] path the path to scripts
+      # @param [Pathname] root_path the path to scripts
       #
       # @return [Scripts] a collection of scripts
       #
@@ -28,7 +28,7 @@ module Brpoplpush
       #
       # Create a new scripts collection based on path
       #
-      # @param [Pathname] path the path to scripts
+      # @param [Pathname] root_path the path to scripts
       #
       # @return [Scripts] a collection of scripts
       #
@@ -40,9 +40,9 @@ module Brpoplpush
       #
       # Store the scripts collection in memory
       #
-      # @param [Pathname] path the path to scripts
+      # @param [Scripts] scripts the path to scripts
       #
-      # @return [Scripts] a collection of scripts
+      # @return [Scripts] the scripts instance that was stored
       #
       def self.store(scripts)
         SCRIPT_PATHS.put(scripts.root_path, scripts)
