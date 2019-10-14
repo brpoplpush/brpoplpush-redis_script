@@ -1,0 +1,54 @@
+env:
+  matrix:
+    - COV=false
+  global:
+    - CC_TEST_REPORTER_ID=e8ee6fccdc36b46acdc96337bb39b2c17ccd824e413649a4d94fd0dd35891d0f
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+dist: bionic
+sudo: required
+language: ruby
+cache: bundler
+services:
+  - redis-server
+
+before_install:
+  - gem install bundler -v 2.0.2
+  - if [[ "${COV}" = "true" ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi;
+  - if [[ "${COV}" = "true" ]]; then chmod +x ./cc-test-reporter; fi;
+
+before_script:
+  - if [[ "${COV}" = "true" ]]; then ./cc-test-reporter before-build; fi;
+
+script:
+  - if [[ "${COV}" = "true" ]]; then bundle exec rubocop -P; fi;
+  - if [[ "${COV}" = "true" ]]; then bundle exec reek .; fi;
+  - bundle exec rspec --require spec_helper --tag ~perf
+
+after_script:
+  - if [[ "${COV}" = "true" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi;
+
+rvm:
+  - 2.6.5
+  - 2.5.7
+
+matrix:
+  fast_finish: true
+  include:
+    - rvm: 2.6.5
+      gemfile: gemfiles/redis_4.x.gemfile
+      env: COV=true
+
+gemfile:
+  - gemfiles/redis_3.x.gemfile
+  - gemfiles/redis_4.x.gemfile
+
+notifications:
+  slack:
+    rooms:
+      secure: akeZX9o0qc3xU8nMkD57NdU1hQ6x4Kg9jrGtIo0R7YYzb3COFdtQrjM9FX40uZhRC+VMJt73LRSbCnlTDvWA3+43SlXkP0toMo4vk91So8ADsP4M8rRQkHDa+Od6hYCf+XEAtPbd3OmgR/VV3+YVItAxKD2BK2OTjtrqFL9lgBVxjam09Gvc+kQpmBYAwnb6qGcpb/K8HvyRVJYXXGHWbZJKBsTU3DAlVlf6jfcQPcw79bXTZ7H2lgJUStBOiVBLyyr/I6ITObqkwMCTpHbiHc8rRxUA5op8EFhN9nOpI2fz1J3tP9tDluGQBW1CgqrNqQHIh2jrdMOYh86RQVRyazVG1FGaC2nhgNHMhy+DqonQDhPTj5tcLbHjKPgHemJeRj2C8rF/ReWXNcpN6SSvJhVBYh6vwTD1oDVPsPZDgpgs1iBPY7Xf21vBPjBjp7Yl8eENVRk4jBS18aKwesVf1741hNJ460aAX/4DFN253TJ/O0QZv68GXQMsPUFK1ljlKYD2ARYpiLioENjjQckd2cjKgxZg/XBdl5JwKBP2rTvHut4xCkQQys5H21CtuRoQahY8fhwlb2j0EzJzJUU/xJhNN8ApAfdOb/x6uDvFkb9cVJywMaO+3LBkCGhdg+xbqPuw/M2OLc3kINtppa/bC+2lWSvBpIi2qWyNxKu1pD8=
+    on_start: never
+    on_failure: always
+    on_success: change
+  email:
+    recipients:
+      - mikael@mhenrixon.se
