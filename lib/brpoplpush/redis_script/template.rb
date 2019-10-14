@@ -3,12 +3,12 @@
 module Brpoplpush
   # Interface to dealing with .lua files
   #
-  # @author Mikael Henriksson <mikael@zoolutions.se>
+  # @author Mikael Henriksson <mikael@mhenrixon.com>
   module RedisScript
     #
     # Class Template provides LUA script partial template rendering
     #
-    # @author Mikael Henriksson <mikael@zoolutions.se>
+    # @author Mikael Henriksson <mikael@mhenrixon.com>
     #
     class Template
       def initialize(script_path)

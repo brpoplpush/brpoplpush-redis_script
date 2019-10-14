@@ -8,6 +8,7 @@ LOCAL_GEMS = "Gemfile.local"
 gem "appraisal", ">= 2.2"
 
 platforms :mri do
+  gem "fuubar"
   gem "guard"
   gem "guard-bundler"
   gem "guard-reek"
@@ -17,6 +18,7 @@ platforms :mri do
   gem "pry"
   gem "redcarpet", "~> 3.4"
   gem "reek", ">= 5.3"
+  gem "rspec-its"
   gem "rubocop"
   gem "rubocop-performance"
   gem "rubocop-rspec"

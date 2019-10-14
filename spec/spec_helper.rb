@@ -13,17 +13,14 @@ if RUBY_ENGINE == "ruby" && RUBY_VERSION >= "2.6" && RUBY_VERSION < "2.7"
 end
 
 require "rspec"
+require "rspec/its"
 require "brpoplpush/redis_script"
 
-LOGLEVEL = ENV.fetch("LOGLEVEL") { "ERROR" }.upcase
+LOGLEVEL     = ENV.fetch("LOGLEVEL") { "ERROR" }.upcase
+SUPPORT_DIR  = Pathname.new(File.join(File.dirname(__FILE__), "support"))
+SCRIPTS_PATH = SUPPORT_DIR.join("lua")
 
-Brpoplpush::RedisScript.configure do |config|
-  config.logger.level     = Logger.const_get(LOGLEVEL)
-  config.debug_lua        = %w[1 true].include?(ENV["DEBUG_LUA"])
-  config.script_directory = Pathname.new(__FILE__).dirname.join("support", "lua")
-end
-
-Dir[File.join(File.dirname(__FILE__), "support", "**", "*.rb")].each { |f| require f }
+Dir[SUPPORT_DIR.join("**", "*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
   config.define_derived_metadata do |meta|

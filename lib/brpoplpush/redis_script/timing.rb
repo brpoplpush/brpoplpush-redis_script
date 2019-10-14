@@ -4,7 +4,7 @@ module Brpoplpush
   module RedisScript
     # Handles timing> of things
     #
-    # @author Mikael Henriksson <mikael@zoolutions.se>
+    # @author Mikael Henriksson <mikael@mhenrixon.com>
     module Timing
       module_function
 
@@ -15,9 +15,9 @@ module Brpoplpush
       # @return [yield return, Float]
       #
       def timed
-        start_time = clock_stamp
+        start_time = now
 
-        [yield, clock_stamp - start_time]
+        [yield, now - start_time]
       end
 
       #
@@ -27,12 +27,8 @@ module Brpoplpush
       #
       # @return [Float]
       #
-      def clock_stamp
-        if Process.const_defined?("CLOCK_MONOTONIC")
-          Process.clock_gettime(Process::CLOCK_MONOTONIC)
-        else
-          Time.now.to_f
-        end
+      def now
+        (Process.clock_gettime(Process::CLOCK_MONOTONIC) * 1000).to_i
       end
     end
   end
