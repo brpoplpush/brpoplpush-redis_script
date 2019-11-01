@@ -10,4 +10,5 @@
 # rspec failure tracking
 .rspec_status
 
-/Gemfile.lock
+# Ignore both Gemfile.lock and gemfiles/*.lock
+*emfile.lock
