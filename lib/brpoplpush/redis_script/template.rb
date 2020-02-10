@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "erb"
+
 module Brpoplpush
   # Interface to dealing with .lua files
   #
@@ -25,7 +27,7 @@ module Brpoplpush
       #
       def render(pathname)
         @partial_templates ||= {}
-        ERB.new(File.read(pathname)).result(binding)
+        ::ERB.new(File.read(pathname)).result(binding)
       end
 
       # helper method to include a lua partial within another lua script
