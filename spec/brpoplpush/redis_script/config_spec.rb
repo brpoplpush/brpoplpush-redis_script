@@ -14,8 +14,18 @@ RSpec.describe Brpoplpush::RedisScript::Config do
   describe "scripts_path=" do
     subject(:set_scripts_path) { config.scripts_path = new_path }
 
-    let(:new_path) { SCRIPTS_PATH }
+    context "when directory exists" do
+      let(:new_path) { SCRIPTS_PATH }
 
-    it { expect { set_scripts_path }.to change { config.scripts_path }.from(nil).to(new_path) }
+      it { expect { set_scripts_path }.to change { config.scripts_path }.from(nil).to(new_path) }
+    end
+
+    context "when directory does not exist" do
+      let(:new_path) { SCRIPTS_PATH.join("non-existing", "path") }
+
+      it do
+        expect { set_scripts_path }.to raise_error(ArgumentError)
+      end
+    end
   end
 end
