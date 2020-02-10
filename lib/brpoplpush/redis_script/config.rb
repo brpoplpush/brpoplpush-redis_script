@@ -37,7 +37,7 @@ module Brpoplpush
       # @return [Pathname]
       #
       def scripts_path=(obj)
-        raise ArgumentError "#{obj} does not exist" unless Dir.exist?(obj.to_s)
+        raise(ArgumentError, "#{obj} does not exist") unless Dir.exist?(obj.to_s)
 
         @scripts_path =
           case obj

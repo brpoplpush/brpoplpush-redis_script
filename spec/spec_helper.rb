@@ -20,7 +20,7 @@ LOGLEVEL     = ENV.fetch("LOGLEVEL") { "ERROR" }.upcase
 SUPPORT_DIR  = Pathname.new(File.join(File.dirname(__FILE__), "support"))
 SCRIPTS_PATH = SUPPORT_DIR.join("lua")
 
-Dir[SUPPORT_DIR.join("**", "*.rb")].each { |f| require f }
+Dir[SUPPORT_DIR.join("**", "*.rb")].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.define_derived_metadata do |meta|
