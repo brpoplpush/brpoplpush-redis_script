@@ -19,9 +19,9 @@ platforms :mri do
   gem "redcarpet", "~> 3.4"
   gem "reek", ">= 5.3"
   gem "rspec-its"
-  gem "rubocop"
-  gem "rubocop-performance"
-  gem "rubocop-rspec"
+  gem "rubocop", "~> 0.79"
+  gem "rubocop-performance", "~> 1.5"
+  gem "rubocop-rspec", "~> 1.37"
   gem "simplecov-json"
   gem "travis"
 end
