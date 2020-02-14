@@ -20,9 +20,9 @@ platforms :mri do
   gem "reek", ">= 5.3"
   gem "rspec-its"
   gem "rubocop", "~> 0.79"
-  gem "rubocop-performance"
-  gem "rubocop-rspec"
-  gem "simplecov-json"
+  gem "rubocop-performance", "~> 1.5.2"
+  gem "rubocop-rspec", "~> 1.37.0"
+  gem "simplecov-oj", require: false
   gem "travis"
 end
 

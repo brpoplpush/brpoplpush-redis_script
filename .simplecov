@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "simplecov-json"
+require "simplecov-oj"
 
 SimpleCov.command_name "RSpec"
 # SimpleCov.refuse_coverage_drop
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::JSONFormatter,
+  SimpleCov::Formatter::OjFormatter,
 ]
 
 SimpleCov.start do
