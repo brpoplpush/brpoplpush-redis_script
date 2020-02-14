@@ -81,6 +81,9 @@ RSpec/AlignLeftLetBrace:
 RSpec/DescribeClass:
   Enabled: true
 
+RSpec/RepeatedDescription:
+  Enabled: false
+
 RSpec/ExampleLength:
   Enabled: true
 
