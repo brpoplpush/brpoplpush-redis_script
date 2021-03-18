@@ -66,7 +66,12 @@ module Brpoplpush
       end
 
       def load(conn)
-        @sha = conn.script(:load, source)
+        @sha = 
+          if conn.respond_to?(:namespace)
+            conn.redis.script(:load, source)
+          else
+            conn.script(:load, source)
+          end
 
         self
       end
