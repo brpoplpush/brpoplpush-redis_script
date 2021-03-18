@@ -6,15 +6,15 @@
 <title>
   Class: Brpoplpush::RedisScript::Script
   
-    &mdash; Documentation by YARD 0.9.20
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Brpoplpush::RedisScript::Script";
   relpath = '../../';
 </script>
@@ -569,7 +569,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns a new instance of Script</p>
+    <p>Returns a new instance of Script.</p>
 
 
   </div>
@@ -626,7 +626,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute call_count</p>
+    <p>Returns the value of attribute call_count.</p>
 
 
   </div>
@@ -668,7 +668,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute name</p>
+    <p>Returns the value of attribute name.</p>
 
 
   </div>
@@ -710,7 +710,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute path</p>
+    <p>Returns the value of attribute path.</p>
 
 
   </div>
@@ -752,7 +752,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute root_path</p>
+    <p>Returns the value of attribute root_path.</p>
 
 
   </div>
@@ -794,7 +794,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the name of the script without extension</p>
+    <p>Returns the name of the script without extension.</p>
 
 
   </div>
@@ -849,7 +849,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the path to the script on disk</p>
+    <p>Returns the path to the script on disk.</p>
 
 
   </div>
@@ -904,7 +904,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute sha</p>
+    <p>Returns the value of attribute sha.</p>
 
 
   </div>
@@ -946,7 +946,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute source</p>
+    <p>Returns the value of attribute source.</p>
 
 
   </div>
@@ -1181,13 +1181,23 @@
 69
 70
 71
-72</pre>
+72
+73
+74
+75
+76
+77</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/script.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='rparen'>)</span>
-  <span class='ivar'>@sha</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_script'>script</span><span class='lparen'>(</span><span class='symbol'>:load</span><span class='comma'>,</span> <span class='id identifier rubyid_source'>source</span><span class='rparen'>)</span>
+  <span class='ivar'>@sha</span> <span class='op'>=</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:namespace</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_redis'>redis</span><span class='period'>.</span><span class='id identifier rubyid_script'>script</span><span class='lparen'>(</span><span class='symbol'>:load</span><span class='comma'>,</span> <span class='id identifier rubyid_source'>source</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_script'>script</span><span class='lparen'>(</span><span class='symbol'>:load</span><span class='comma'>,</span> <span class='id identifier rubyid_source'>source</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
 
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
@@ -1231,9 +1241,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 13 22:27:18 2019 by
+  Generated on Thu Mar 18 20:18:41 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.20 (ruby-2.6.5).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

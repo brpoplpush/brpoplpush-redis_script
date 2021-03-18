@@ -6,15 +6,15 @@
 <title>
   Class: Brpoplpush::RedisScript::Template
   
-    &mdash; Documentation by YARD 0.9.20
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "Brpoplpush::RedisScript::Template";
   relpath = '../../';
 </script>
@@ -227,7 +227,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns a new instance of Template</p>
+    <p>Returns a new instance of Template.</p>
 
 
   </div>
@@ -241,12 +241,12 @@
       <pre class="lines">
 
 
-14
-15
-16</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/template.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/template.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_script_path'>script_path</span><span class='rparen'>)</span>
   <span class='ivar'>@script_path</span> <span class='op'>=</span> <span class='id identifier rubyid_script_path'>script_path</span>
@@ -288,15 +288,15 @@
       <pre class="lines">
 
 
-33
-34
 35
 36
 37
-38</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/template.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/template.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_include_partial'>include_partial</span><span class='lparen'>(</span><span class='id identifier rubyid_relative_path'>relative_path</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@partial_templates</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_relative_path'>relative_path</span><span class='rparen'>)</span>
@@ -371,17 +371,17 @@
       <pre class="lines">
 
 
-26
-27
 28
-29</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/template.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/template.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='id identifier rubyid_pathname'>pathname</span><span class='rparen'>)</span>
   <span class='ivar'>@partial_templates</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='const'>ERB</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_pathname'>pathname</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span><span class='lparen'>(</span><span class='id identifier rubyid_binding'>binding</span><span class='rparen'>)</span>
+  <span class='op'>::</span><span class='const'>ERB</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_pathname'>pathname</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_result'>result</span><span class='lparen'>(</span><span class='id identifier rubyid_binding'>binding</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -393,9 +393,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 13 22:27:18 2019 by
+  Generated on Thu Mar 18 20:18:41 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.20 (ruby-2.6.5).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>
