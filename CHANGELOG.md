@@ -1,5 +1,22 @@
 # Changelog
 
+## [v0.1.2](https://github.com/brpoplpush/brpoplpush-redis_script/tree/v0.1.2) (2021-03-18)
+
+[Full Changelog](https://github.com/brpoplpush/brpoplpush-redis_script/compare/v0.1.1...v0.1.2)
+
+**Implemented enhancements:**
+
+- Various updates [\#21](https://github.com/brpoplpush/brpoplpush-redis_script/pull/21) ([mhenrixon](https://github.com/mhenrixon))
+
+**Fixed bugs:**
+
+- Improve compatibility with redis-namespace \#19 [\#20](https://github.com/brpoplpush/brpoplpush-redis_script/pull/20) ([Wolfer](https://github.com/Wolfer))
+- lint: pin rubocop related gems [\#18](https://github.com/brpoplpush/brpoplpush-redis_script/pull/18) ([mberlanda](https://github.com/mberlanda))
+
+**Closed issues:**
+
+- redis-namespace asks to use admistrative commands directly [\#19](https://github.com/brpoplpush/brpoplpush-redis_script/issues/19)
+
 ## [v0.1.1](https://github.com/brpoplpush/brpoplpush-redis_script/tree/v0.1.1) (2020-02-10)
 
 [Full Changelog](https://github.com/brpoplpush/brpoplpush-redis_script/compare/v0.1.0...v0.1.1)
