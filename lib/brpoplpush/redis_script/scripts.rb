@@ -90,7 +90,11 @@ module Brpoplpush
       end
 
       def kill(conn)
-        conn.script(:kill)
+        if conn.respond_to?(:namespace)
+          conn.redis.script(:kill)
+        else
+          conn.script(:kill)
+        end
       end
 
       #
