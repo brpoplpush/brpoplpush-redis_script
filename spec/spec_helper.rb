@@ -2,8 +2,8 @@
 
 require "bundler/setup"
 
-if RUBY_ENGINE == "ruby" && RUBY_VERSION >= "2.6" && RUBY_VERSION < "2.7"
-  require "simplecov" unless %w[false 0].include?(ENV["COV"])
+if RUBY_ENGINE == "ruby" && RUBY_VERSION >= "2.7" && RUBY_VERSION < "3.0"
+  require "simplecov" if ENV["COV"]
 
   begin
     require "pry"

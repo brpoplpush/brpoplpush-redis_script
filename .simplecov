@@ -14,17 +14,14 @@ LOCAL_FORMATTERS = [
   SimpleCov::Formatter::HTMLFormatter,
 ].freeze
 
-# SimpleCov.command_name "RSpec"
-# SimpleCov.refuse_coverage_drop
-SimpleCov.formatters = [
-  SimpleCov::Formatter::JSONFormatter,
-  SimpleCov::Formatter::SublimeFormatter,
-]
-
 SimpleCov.start do
-  add_filter "/spec/"
+  add_filter "/.github/"
   add_filter "/bin/"
+  add_filter "/coverage/"
+  add_filter "/doc/"
   add_filter "/gemfiles/"
+  add_filter "/spec/"
+  add_filter "/vendor/"
 
   add_group "Redis Script", "lib/redis_script"
 
