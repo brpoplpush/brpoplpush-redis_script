@@ -57,9 +57,9 @@ RSpec.describe Brpoplpush::RedisScript::Logging do
     end
   end
 
-  it_behaves_like 'delegates to logger', level: :debug
-  it_behaves_like 'delegates to logger', level: :info
-  it_behaves_like 'delegates to logger', level: :warn
-  it_behaves_like 'delegates to logger', level: :error
-  it_behaves_like 'delegates to logger', level: :fatal
+  it_behaves_like "delegates to logger", level: :debug
+  it_behaves_like "delegates to logger", level: :info
+  it_behaves_like "delegates to logger", level: :warn
+  it_behaves_like "delegates to logger", level: :error
+  it_behaves_like "delegates to logger", level: :fatal
 end
