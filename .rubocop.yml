@@ -8,6 +8,7 @@ inherit_mode:
 
 AllCops:
   TargetRubyVersion: 2.5
+  NewCops: enable
   Include:
     - "**/Rakefile"
     - "**/Gemfile"
@@ -98,6 +99,10 @@ RSpec/FilePath:
 
 RSpec/InstanceVariable:
   Enabled: true
+
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
 
 RSpec/MultipleExpectations:
   Enabled: false

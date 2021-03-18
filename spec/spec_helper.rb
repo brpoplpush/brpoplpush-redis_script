@@ -16,7 +16,7 @@ require "rspec"
 require "rspec/its"
 require "brpoplpush/redis_script"
 
-LOGLEVEL     = ENV.fetch("LOGLEVEL") { "ERROR" }.upcase
+LOGLEVEL     = ENV.fetch("LOGLEVEL", "ERROR").upcase
 SUPPORT_DIR  = Pathname.new(File.join(File.dirname(__FILE__), "support"))
 SCRIPTS_PATH = SUPPORT_DIR.join("lua")
 

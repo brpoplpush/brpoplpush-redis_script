@@ -22,7 +22,7 @@ module Brpoplpush
       #
       def initialize
         @conn         = Redis.new
-        @logger       = Logger.new(STDOUT)
+        @logger       = Logger.new($stdout)
         @scripts_path = nil
       end
 

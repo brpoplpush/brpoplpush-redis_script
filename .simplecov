@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "simplecov-oj"
+require "simplecov-sublime"
 
 SimpleCov.command_name "RSpec"
 # SimpleCov.refuse_coverage_drop
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::OjFormatter,
+  SimpleCov::Formatter::SublimeFormatter,
 ]
 
 SimpleCov.start do
