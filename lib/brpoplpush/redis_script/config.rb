@@ -22,7 +22,7 @@ module Brpoplpush
       #
       def initialize
         @conn         = Redis.new
-        @logger       = Logger.new(STDOUT)
+        @logger       = Logger.new($stdout)
         @scripts_path = nil
       end
 
@@ -37,16 +37,15 @@ module Brpoplpush
       # @return [Pathname]
       #
       def scripts_path=(obj)
-        raise(ArgumentError, "#{obj} does not exist") unless Dir.exist?(obj.to_s)
+        raise ArgumentError, "#{obj} should be a Pathname or String" unless obj.is_a?(Pathname) || obj.is_a?(String)
+        raise ArgumentError, "#{obj} does not exist" unless Dir.exist?(obj.to_s)
 
         @scripts_path =
           case obj
           when String
             Pathname.new(obj)
-          when Pathname
-            obj
           else
-            raise ArgumentError, "#{obj} should be a Pathname or String"
+            obj
           end
       end
 
