@@ -13,3 +13,5 @@
 # Ignore both Gemfile.lock and gemfiles/*.lock
 *emfile.lock
 /vendor/
+/gemfiles/vendor/
+/gemfiles/.bundle/config
