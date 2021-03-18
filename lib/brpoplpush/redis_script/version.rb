@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+# :nocov:
 module Brpoplpush
+  # :nocov:
   module RedisScript
-    VERSION = "0.1.1"
+    # :nocov:
+    VERSION = "0.1.2"
   end
 end

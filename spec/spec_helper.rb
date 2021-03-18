@@ -2,8 +2,8 @@
 
 require "bundler/setup"
 
-if RUBY_ENGINE == "ruby" && RUBY_VERSION >= "2.6" && RUBY_VERSION < "2.7"
-  require "simplecov" unless %w[false 0].include?(ENV["COV"])
+if RUBY_ENGINE == "ruby" && RUBY_VERSION >= "2.7" && RUBY_VERSION < "3.0"
+  require "simplecov" if ENV["COV"]
 
   begin
     require "pry"
@@ -16,11 +16,11 @@ require "rspec"
 require "rspec/its"
 require "brpoplpush/redis_script"
 
-LOGLEVEL     = ENV.fetch("LOGLEVEL") { "ERROR" }.upcase
+LOGLEVEL     = ENV.fetch("LOGLEVEL", "ERROR").upcase
 SUPPORT_DIR  = Pathname.new(File.join(File.dirname(__FILE__), "support"))
 SCRIPTS_PATH = SUPPORT_DIR.join("lua")
 
-Dir[SUPPORT_DIR.join("**", "*.rb")].each { |f| require f }
+Dir[SUPPORT_DIR.join("**", "*.rb")].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.define_derived_metadata do |meta|

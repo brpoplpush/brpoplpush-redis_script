@@ -30,7 +30,7 @@ Let's take sidekiq-unique-jobs for example. It uses `brpoplpush-redis_script` li
 
 ```ruby
 # lib/my_redis_scripts.rb
-require "brpoplpush-redis_script"
+require "brpoplpush/redis_script"
 
 module SidekiqUniqueJobs::Scripts
   include Brpoplpush::RedisScript::DSL

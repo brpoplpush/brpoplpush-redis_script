@@ -8,6 +8,7 @@ inherit_mode:
 
 AllCops:
   TargetRubyVersion: 2.5
+  NewCops: enable
   Include:
     - "**/Rakefile"
     - "**/Gemfile"
@@ -26,11 +27,14 @@ AllCops:
 Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
 
+Layout/LineLength:
+  Max: 120
+
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - "spec/**/*"
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Enabled: true
 
 Lint/UselessAssignment:
@@ -41,9 +45,6 @@ Metrics/AbcSize:
 
 Metrics/CyclomaticComplexity:
   Max: 7
-
-Metrics/LineLength:
-  Max: 120
 
 Metrics/MethodLength:
   Max: 13
@@ -68,18 +69,21 @@ Naming/ConstantName:
 Naming/FileName:
   Enabled: true
 
-Naming/RescuedExceptionsVariableName:
-  PreferredName: ex
-
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   AllowedNames:
     - ex
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: ex
 
 RSpec/AlignLeftLetBrace:
   Enabled: true
 
 RSpec/DescribeClass:
   Enabled: true
+
+RSpec/RepeatedDescription:
+  Enabled: false
 
 RSpec/ExampleLength:
   Enabled: true
@@ -95,6 +99,10 @@ RSpec/FilePath:
 
 RSpec/InstanceVariable:
   Enabled: true
+
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
 
 RSpec/MultipleExpectations:
   Enabled: false

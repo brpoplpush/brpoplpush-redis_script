@@ -1,0 +1,62 @@
+name: RSpec
+on:
+  pull_request:
+  push:
+    branches: [ master ]
+jobs:
+  coverage:
+    services:
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler: 2.2.14
+          bundler-cache: true
+
+      - name: Install Code Climate reporter
+        run: |
+          sudo curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          sudo chmod +x ./cc-test-reporter
+      - name: Generate Coverage
+        env:
+          CC_TEST_REPORTER_ID: e8ee6fccdc36b46acdc96337bb39b2c17ccd824e413649a4d94fd0dd35891d0f
+        run: |
+          export GIT_BRANCH=${GITHUB_REF#refs/heads/}
+          export GIT_COMMIT_SHA=${GITHUB_SHA}
+          echo $GIT_BRANCH
+          echo $GIT_COMMIT_SHA
+          ./cc-test-reporter before-build
+          COV=true bin/rspec --require spec_helper
+          ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+
+  tests:
+    services:
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        ruby: [2.5, 2.6, 2.7]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler: 2.2.14
+          bundler-cache: true
+      - run: bin/appraisal install --jobs=$(nproc) --retry=$(nproc)
+      - run: bin/appraisal rspec --require spec_helper

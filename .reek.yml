@@ -23,6 +23,10 @@ detectors:
       - Brpoplpush::RedisScript::Client#self.call
       - Brpoplpush::RedisScript::DSL::ClassMethods#execute
       - Brpoplpush::RedisScript::Scripts#execute
+  ManualDispatch:
+    exclude:
+      - Brpoplpush::RedisScript::Script#load
+      - Brpoplpush::RedisScript::Scripts#kill
   TooManyInstanceVariables:
     exclude:
       - Brpoplpush::RedisScript::Script
