@@ -112,7 +112,7 @@ module Brpoplpush
       #
       def execute(name, conn, keys: [], argv: [])
         script = fetch(name, conn)
-        conn.evalsha(script.sha, keys: keys, argv: argv)
+        conn.evalsha(script.sha, keys, argv)
       end
 
       def count
