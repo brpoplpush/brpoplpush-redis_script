@@ -6,7 +6,7 @@
 <title>
   Exception: Brpoplpush::RedisScript::LuaError
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -394,7 +394,6 @@ the message and backtrace in the process.</p>
       <pre class="lines">
 
 
-42
 43
 44
 45
@@ -408,10 +407,11 @@ the message and backtrace in the process.</p>
 53
 54
 55
-56</pre>
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_error'>error</span><span class='comma'>,</span> <span class='id identifier rubyid_script'>script</span><span class='rparen'>)</span>
   <span class='ivar'>@error</span>        <span class='op'>=</span> <span class='id identifier rubyid_error'>error</span>
@@ -465,12 +465,12 @@ the message and backtrace in the process.</p>
       <pre class="lines">
 
 
-26
 27
-28</pre>
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content'>content</span>
   <span class='ivar'>@content</span>
@@ -507,12 +507,12 @@ the message and backtrace in the process.</p>
       <pre class="lines">
 
 
-26
 27
-28</pre>
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_error'>error</span>
   <span class='ivar'>@error</span>
@@ -549,12 +549,12 @@ the message and backtrace in the process.</p>
       <pre class="lines">
 
 
-26
 27
-28</pre>
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file'>file</span>
   <span class='ivar'>@file</span>
@@ -632,12 +632,12 @@ the message and backtrace in the process.</p>
       <pre class="lines">
 
 
-32
 33
-34</pre>
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/brpoplpush/redis_script/lua_error.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_intercepts?'>intercepts?</span><span class='lparen'>(</span><span class='id identifier rubyid_error'>error</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="#PATTERN-constant" title="Brpoplpush::RedisScript::LuaError::PATTERN (constant)">PATTERN</a></span></span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='id identifier rubyid_error'>error</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
@@ -652,9 +652,9 @@ the message and backtrace in the process.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Mar 18 20:23:26 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Nov  7 14:27:46 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.1.2).
 </div>
 
     </div>
