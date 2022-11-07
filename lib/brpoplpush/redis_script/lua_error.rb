@@ -9,6 +9,7 @@ module Brpoplpush
     #
     class Misconfiguration < RuntimeError
     end
+
     # LuaError raised on errors in Lua scripts
     #
     # @author Mikael Henriksson <mikael@mhenrixon.com>

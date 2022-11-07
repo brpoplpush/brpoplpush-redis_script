@@ -89,8 +89,8 @@ RSpec.describe Brpoplpush::RedisScript::Client, "#execute" do
 
     context "when message starts with BUSY" do
       let(:redis_error_message) do
-        "BUSY Redis is busy running a script." \
-        " You can only execute SCRIPT KILL or SHUTDOWN NOSAVE."
+        "BUSY Redis is busy running a script. " \
+          "You can only execute SCRIPT KILL or SHUTDOWN NOSAVE."
       end
 
       context "when .script(:kill) raises CommandError" do
