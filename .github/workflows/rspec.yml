@@ -37,7 +37,7 @@ jobs:
           COV=true bin/rspec --require spec_helper
           ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
 
-  tests:
+  unit:
     services:
       redis:
         image: redis:latest
