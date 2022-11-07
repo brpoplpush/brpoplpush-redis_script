@@ -38,7 +38,7 @@ RSpec.describe Brpoplpush::RedisScript::Scripts do
   end
 
   describe "#execute" do
-    subject(:execute) { scripts.execute(script_name, redis, arguments) }
+    subject(:execute) { scripts.execute(script_name, redis, **arguments) }
 
     let(:keys)      { %w[key_one key_two key_tre key_for key_fav] }
     let(:argv)      { %w[arg_one arg_two arg_tre arg_for arg_fav] }

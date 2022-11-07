@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Brpoplpush::RedisScript::Client, "#execute" do
-  subject(:execute) { client.execute(script_name, redis, arguments) }
+  subject(:execute) { client.execute(script_name, redis, **arguments) }
 
   include_context "with test config"
 

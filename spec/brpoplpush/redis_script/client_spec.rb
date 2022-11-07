@@ -6,7 +6,7 @@ RSpec.describe Brpoplpush::RedisScript::Client do
   include_context "with test config"
 
   describe ".execute" do
-    subject(:execute) { client.execute(script_name, redis, arguments) }
+    subject(:execute) { client.execute(script_name, redis, **arguments) }
 
     let(:keys)         { %w[key_one key_two key_tre key_for key_fav] }
     let(:argv)         { %w[arg_one arg_two arg_tre arg_for arg_fav] }
