@@ -58,6 +58,7 @@ end
 
 task default: [:style, :rspec, :yard]
 
+desc "Cut a new gem version"
 task :release do
   sh("./update_docs.sh")
   sh("gem release --tag --push")

@@ -4,7 +4,7 @@ require_relative "scripts"
 
 RSpec.describe SidekiqUniqueJobs::Scripts do
   describe ".execute" do
-    subject(:execute) { described_class.execute(script_name, script_conn, script_args) }
+    subject(:execute) { described_class.execute(script_name, script_conn, **script_args) }
 
     let(:script_name) { :lock }
     let(:script_conn) { Redis.new }
@@ -27,7 +27,7 @@ RSpec.describe SidekiqUniqueJobs::Scripts do
 
       context "when key was already set" do
         before do
-          described_class.execute(script_name, script_conn, script_args)
+          described_class.execute(script_name, script_conn, **script_args)
         end
 
         it { is_expected.to be_nil }

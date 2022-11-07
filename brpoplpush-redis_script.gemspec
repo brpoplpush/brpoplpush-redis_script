@@ -45,4 +45,5 @@ Gem::Specification.new do |spec|
 
   # ===== Release Management =====
   spec.add_development_dependency "gem-release", "~> 2.0"
+  spec.metadata["rubygems_mfa_required"] = "true"
 end

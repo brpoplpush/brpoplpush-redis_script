@@ -37,7 +37,7 @@ jobs:
           COV=true bin/rspec --require spec_helper
           ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
 
-  tests:
+  unit:
     services:
       redis:
         image: redis:latest
@@ -49,14 +49,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        ruby: [2.5, 2.6, 2.7]
+        ruby: [2.5, 2.6, 2.7, 3.0, 3.1]
 
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler: 2.2.14
+          bundler: 2.3.25
           bundler-cache: true
       - run: bin/appraisal install --jobs=$(nproc) --retry=$(nproc)
       - run: bin/appraisal rspec --require spec_helper
