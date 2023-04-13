@@ -2,14 +2,12 @@
 
 require "bundler/setup"
 
-if RUBY_ENGINE == "ruby" && RUBY_VERSION >= "2.7" && RUBY_VERSION < "3.0"
-  require "simplecov" if ENV["COV"]
+require "simplecov" if ENV["COV"]
 
-  begin
-    require "pry"
-  rescue LoadError
-    puts "Pry unavailable"
-  end
+begin
+  require "pry"
+rescue LoadError
+  puts "Pry unavailable"
 end
 
 require "rspec"

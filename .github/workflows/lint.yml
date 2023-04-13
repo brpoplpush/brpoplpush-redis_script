@@ -1,4 +1,4 @@
-name: Lint
+name: ci
 on:
   pull_request:
   push:
@@ -7,14 +7,14 @@ jobs:
   rubocop:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1
-          bundler: 2.3.25
+          ruby-version: 3.2
+          bundler: 2.4.12
           bundler-cache: true
       - run: bin/bundle check || bin/bundle --jobs=$(nproc) --retry=$(nproc)
       - run: bin/rubocop -P
@@ -22,14 +22,14 @@ jobs:
   reek:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1
-          bundler: 2.3.25
+          ruby-version: 3.2
+          bundler: 2.4.12
           bundler-cache: true
       - run: bin/bundle check || bin/bundle --jobs=$(nproc) --retry=$(nproc)
       - run: bin/reek .
