@@ -47,7 +47,7 @@ module Brpoplpush
 
         logger.debug("Executed #{script_name}.lua in #{elapsed}ms")
         result
-      rescue ::Redis::CommandError => ex
+      rescue ::Redis::CommandError, ::RedisClient::CommandError => ex
         handle_error(script_name, conn, ex) do
           execute(script_name, conn, keys: keys, argv: argv)
         end
@@ -58,7 +58,7 @@ module Brpoplpush
       #
       # Handle errors to allow retrying errors that need retrying
       #
-      # @param [Redis::CommandError] ex exception to handle
+      # @param [Redis::CommandError, ::Redis::CommandError] ex exception to handle
       #
       # @return [void]
       #
@@ -84,7 +84,7 @@ module Brpoplpush
 
       def handle_busy(conn)
         scripts.kill(conn)
-      rescue ::Redis::CommandError => ex
+      rescue ::Redis::CommandError, ::RedisClient::CommandError => ex
         logger.warn(ex)
       ensure
         yield
