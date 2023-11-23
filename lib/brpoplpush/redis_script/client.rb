@@ -58,7 +58,7 @@ module Brpoplpush
       #
       # Handle errors to allow retrying errors that need retrying
       #
-      # @param [Redis::CommandError, ::Redis::CommandError] ex exception to handle
+      # @param [Redis::CommandError, ::RedisClient::CommandError] ex exception to handle
       #
       # @return [void]
       #
