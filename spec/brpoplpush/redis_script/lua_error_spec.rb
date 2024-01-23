@@ -25,5 +25,25 @@ RSpec.describe Brpoplpush::RedisScript::LuaError do
 
       it { is_expected.to be(true) }
     end
+
+    context "when error contains redis client ERR Error running script" do
+      let(:error)   { RedisClient::CommandError.new(message) }
+      let(:message) do
+        'ERR Error running script (execute to f_178d75adaa46af3d8237cfd067c9fdff7b9d504f): ' \
+          '[string "func definition"]:7: attempt to compare nil with number'
+      end
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when error contains redis client ERR Error compiling script" do
+      let(:error)   { RedisClient::CommandError.new(message) }
+      let(:message) do
+        'ERR Error compiling script (execute to f_178d75adaa46af3d8237cfd067c9fdff7b9d504f): ' \
+          '[string "func definition"]:7: attempt to compare nil with number'
+      end
+
+      it { is_expected.to be(true) }
+    end
   end
 end

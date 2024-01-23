@@ -40,7 +40,7 @@ module Brpoplpush
             yield config
           else
             options.each do |key, val|
-              config.send("#{key}=", val)
+              config.send(:"#{key}=", val)
             end
           end
         end
